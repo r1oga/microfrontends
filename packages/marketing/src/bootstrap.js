@@ -1,13 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { createMemoryHistory } from 'history'
+import { createMemoryHistory, createBrowserHistory } from 'history'
 
 import App from './App'
 const ROOT_ID = '#_marketing-dev-Root'
 
 // Mount function to start up app
-const mount = (el, { onNavigate } = {}) => {
-  const history = createMemoryHistory()
+const mount = (el, { onNavigate, defaultHistory }) => {
+  const history = defaultHistory || createMemoryHistory()
 
   if (onNavigate) {
     history.listen(onNavigate)
@@ -31,7 +31,9 @@ const inIsolation = () => !!document.querySelector(ROOT_ID)
 
 // If dev mode & isolation, call mount
 const rootEl = document.querySelector(ROOT_ID)
-inDevMode() && inIsolation() && mount(rootEl)
+inDevMode() &&
+  inIsolation() &&
+  mount(rootEl, { defaultHistory: createBrowserHistory() })
 
 // If in container export mount
 
