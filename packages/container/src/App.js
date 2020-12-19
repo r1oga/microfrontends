@@ -1,11 +1,13 @@
 import React from 'react'
+import { BrowserRouter } from 'react-router-dom'
 
-import Marketing from './components/Marketing'
+import { Marketing, Header } from './components'
 
 export default () => (
-  <>
-    <h1>Container!</h1>
-    <hr />
-    <Marketing />
-  </>
+  <BrowserRouter>
+    <>
+      <Header />
+      <Marketing />
+    </>
+  </BrowserRouter>
 )
