@@ -6,6 +6,7 @@ const shared = require('../package.json').dependencies
 
 const devConfig = {
   mode: 'development',
+  output: { publicPath: 'http://localhost:8082/' },
   devServer: { port: 8082, historyApiFallback: { index: 'index.html' } },
   plugins: [
     new ModuleFederationPlugin({
