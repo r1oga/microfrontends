@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 
-import { mount } from 'marketing/App'
+import { mount } from 'auth/App'
 
 export default () => {
   const ref = useRef(null)
