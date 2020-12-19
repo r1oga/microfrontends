@@ -5,15 +5,16 @@ import App from './App'
 const ROOT_ID = '#_marketing-dev-Root'
 
 // Mount function to start up app
-const mount = selector => {
-  ReactDOM.render(<App />, document.querySelector(selector))
+const mount = el => {
+  ReactDOM.render(<App />, el)
 }
 
 const inDevMode = () => process.env.NODE_ENV === 'development'
-const inIsolation = selector => !!document.querySelector(selector)
+const inIsolation = () => !!document.querySelector(ROOT_ID)
 
 // If dev mode & isolation, call mount
-inDevMode() && inIsolation(ROOT_ID) && mount(ROOT_ID)
+const rootEl = document.querySelector(ROOT_ID)
+inDevMode() && inIsolation() && mount(rootEl)
 
 // If in container export mount
 
