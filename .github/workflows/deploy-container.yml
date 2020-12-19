@@ -28,3 +28,5 @@ jobs:
           aws-region: eu-central-1
       - name: Copy files to  production website with AWS CLI
         run: aws s3 sync dist s3://${{ secrets.AWS_S3_BUCKET_NAME }}/container/latest
+      - name: Create invalidation for index.html
+        run: aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_DISTRIBUTION_ID }} --path "/container/latest/index.html"
