@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from 'react'
+import React, { lazy, Suspense, useState } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import {
   createGenerateClassName,
@@ -13,18 +13,27 @@ const AuthLazy = lazy(() => import('./components/Auth'))
 
 const generateClassName = createGenerateClassName({ productionPrefix: 'co' })
 
-export default () => (
-  <BrowserRouter>
-    <StylesProvider generateClassName={generateClassName}>
-      <>
-        <Header />
-        <Suspense fallback={<Progress />}>
-          <Switch>
-            <Route path='/auth' component={AuthLazy} />
-            <Route path='/' component={MarketingLazy} />
-          </Switch>
-        </Suspense>
-      </>
-    </StylesProvider>
-  </BrowserRouter>
-)
+export default () => {
+  const [signedIn, setSignedIn] = useState(false)
+  return (
+    <BrowserRouter>
+      <StylesProvider generateClassName={generateClassName}>
+        <>
+          <Header signedIn={signedIn} />
+          <Suspense fallback={<Progress />}>
+            <Switch>
+              <Route path='/auth'>
+                {/*
+                  Callback passed first to AuthLazy component in container
+                  AuthLazy passes it further to Auth sub app
+                */}
+                <AuthLazy onSignIn={() => setSignedIn(true)} />
+              </Route>
+              <Route path='/' component={MarketingLazy} />
+            </Switch>
+          </Suspense>
+        </>
+      </StylesProvider>
+    </BrowserRouter>
+  )
+}

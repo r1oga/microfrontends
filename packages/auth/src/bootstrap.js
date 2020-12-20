@@ -6,7 +6,7 @@ import App from './App'
 const ROOT_ID = '#_auth-dev-Root'
 
 // Mount function to start up app
-const mount = (el, { onNavigate, defaultHistory, initialPath }) => {
+const mount = (el, { onNavigate, defaultHistory, initialPath, onSignIn }) => {
   const history =
     defaultHistory || createMemoryHistory({ initialEntries: [initialPath] })
 
@@ -14,7 +14,7 @@ const mount = (el, { onNavigate, defaultHistory, initialPath }) => {
     history.listen(onNavigate)
   }
 
-  ReactDOM.render(<App history={history} />, el)
+  ReactDOM.render(<App history={history} onSignIn={onSignIn} />, el)
 
   return {
     onParentNavigate: ({ pathname: nextPathname }) => {
