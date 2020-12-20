@@ -7,9 +7,13 @@ import {
 
 import Header from './components/Header'
 import Progress from './components/Progress'
+import Dashboard from './components/Dashboard'
 
-const MarketingLazy = lazy(() => import('./components/Marketing'))
-const AuthLazy = lazy(() => import('./components/Auth'))
+const [MarketingLazy, AuthLazy, DashboardLazy] = [
+  'Marketing',
+  'Auth',
+  'Dashboard'
+].map(app => lazy(() => import(`./components/${app}`)))
 
 const generateClassName = createGenerateClassName({ productionPrefix: 'co' })
 
@@ -29,6 +33,7 @@ export default () => {
                 */}
                 <AuthLazy onSignIn={() => setSignedIn(true)} />
               </Route>
+              <Route path='/dashboard' component={DashboardLazy} />
               <Route path='/' component={MarketingLazy} />
             </Switch>
           </Suspense>
